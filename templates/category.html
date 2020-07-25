@@ -1,8 +1,20 @@
-{% extends "index.html" %}
+{% extends "proto-index.html" %}
 
 {% block title %}{{ SITENAME }} - {{ category }} category{% endblock %}
 
-{% block content_title %}
-<h2>Articles in the {{ category }} category</h2>
-{% endblock %}
 
+{% block content %}
+
+<ul class="list-group list-group-flush col-lg-8 offset-lg-2 text-center">
+    <h1 class="display-4">{{category}}</h1>
+
+    {%for article in articles%}
+    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
+        <a href={{SITEURL}}/{{article.url}} class="text-reset stretched-link">{{article.title}}</a>
+        <small class="text-muted">{{article.locale_date}}</small>
+    </li>
+    {%endfor%}
+
+</ul>
+
+{% endblock %}

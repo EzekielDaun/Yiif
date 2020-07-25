@@ -1,7 +1,14 @@
-{% extends "index.html" %}
+{% extends "proto-index.html" %}
 
 {% block title %}{{ SITENAME }} - {{ tag }} tag{% endblock %}
 
-{% block content_title %}
+{% block content %}
 <h2>Articles tagged with {{ tag }}</h2>
+
+<ul>
+    {%for article in articles%}
+    <li><a href="{{SITEURL}}/{{ article.url }}">{{article.title}}</a></li>
+    {%endfor%}
+</ul>
+
 {% endblock %}

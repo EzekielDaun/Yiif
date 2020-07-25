@@ -1,28 +1,71 @@
-{% extends "base.html" %}
-{% block content %}
-<section id="content">
-{% block content_title %}
-<h2>All articles</h2>
-{% endblock %}
+{% extends "proto-index.html" %}
 
-<ol id="post-list">
-{% for article in articles_page.object_list %}
-        <li><article class="hentry">
-                <header> <h2 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2> </header>
-                <footer class="post-info">
-                    <time class="published" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }} </time>
-                    <address class="vcard author">By
-                    {% for author in article.authors %}
-                        <a class="url fn" href="{{ SITEURL }}/{{ author.url }}">{{ author }}</a>
-                    {% endfor %}
-                    </address>
-                </footer><!-- /.post-info -->
-                <div class="entry-content"> {{ article.summary }} </div><!-- /.entry-content -->
-        </article></li>
-{% endfor %}
-</ol><!-- /#posts-list -->
-{% if articles_page.has_other_pages() %}
-    {% include 'pagination.html' %}
-{% endif %}
-</section><!-- /#content -->
+{% block jumbotron %}
+    <div id="carousel_jumbotron" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for article in articles|selectattr('carousel')%}
+            <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0}}" {%if loop.index0==0 %}class="active"{%endif%}></li>
+            {%endfor%}
+        </ol>
+
+        <ul class="carousel-inner" style="padding:0">
+            {% for article in articles|selectattr('carousel')%}
+            <li class="text-reset carousel-item {%if loop.index==1%}active{%endif%}" style="height:45vh;background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))">
+                <a href="{{article.url}}">
+                    <div class="d-block w-100 container-fluid" style="background-image:url({%if article.cover%}{{article.cover}}{%else%}'images/default_cover.png'{%endif%});background-size:contain;background-position:center;background-repeat:no-repeat;height:100%;">
+                        <div class="carousel-caption d-none d-sm-block" style="bottom:15%;text-align:center;">
+                            <h1 class="display-1 text-capitalize" >{{article.title}}</h1>
+                            {{article.summary}}
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endfor%}
+        </ul>
+
+        <a class="carousel-control-prev" href="#carousel_jumbotron" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel_jumbotron" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+        </a>
+
+    </div>
+{% endblock jumbotron %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 col-lg-3 order-lg-second" id="sidebar">
+            <h2 class="text-uppercase">tags</h2>
+            {%for tag,articles in tags%}
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="{{tag.url}}">{{tag}} <span class="badge badge-dark">{{articles|count}}</span> </a>
+            {%endfor%}
+            {%for tag,articles in tags|sort%}
+            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm" href="{{tag.url}}">{{tag}} <span class="badge badge-dark">{{articles|count}}</span> </a>
+            {%endfor%}
+        </div>
+
+        <div class="col-12 col-lg-9 order-lg-first" id="recent-posts">
+            <h2 class="col-12">Recent Posts</h2>
+            <div class="card-group">
+                {%for article in dates_page.object_list %}{%if loop.index<=4%}
+                <div class="card" style="min-width:33%">
+                    {%if article.cover%}<img src="{{article.cover}}" class="card-img-top" alt={{article.title}}>{%endif%}
+                    <div class="card-body">
+                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="{{article.url }}">{{article.title}}</a></h3>
+                        <p class="card-text">{{article.summary}}</p>
+                    </div>
+                    <div class="card-footer"><small class="text-muted">{{article.locale_date}}</small></div>
+                </div>
+                {%endif%}{%endfor%}
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    {% if articles_page.has_other_pages() %}
+        {% include 'pagination.html' %}
+    {% endif %}
+
 {% endblock content %}
