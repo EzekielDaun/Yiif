@@ -38,13 +38,20 @@
 {% block content %}
     <div class="row">
         <div class="col-12 col-lg-3 order-lg-second" id="sidebar">
-            <h2 class="text-uppercase">tags</h2>
-            {%for tag,articles in tags%}
-            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="{{tag.url}}">{{tag}} <span class="badge badge-dark">{{articles|count}}</span> </a>
-            {%endfor%}
-            {%for tag,articles in tags|sort%}
-            <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm" href="{{tag.url}}">{{tag}} <span class="badge badge-dark">{{articles|count}}</span> </a>
-            {%endfor%}
+            <div class="col">
+                <h2 class="text-capitalize">tags</h2>
+                {%for tag,articles in tags%}
+                <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="{{tag.url}}">{{tag}} <span class="badge badge-dark">{{articles|count}}</span> </a>
+                {%endfor%}
+                {%for tag,articles in tags|sort%}
+                <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm" href="{{tag.url}}">{{tag}} <span class="badge badge-dark">{{articles|count}}</span> </a>
+                {%endfor%}
+            </div>
+            <div class="col">
+                <canvas id="radar-map">
+                    <p>radar-map test</p>
+                </canvas>
+            </div>
         </div>
 
         <div class="col-12 col-lg-9 order-lg-first" id="recent-posts">
@@ -64,8 +71,8 @@
         </div>
     </div><!-- /.row -->
 
-    {% if articles_page.has_other_pages() %}
+    <!-- {% if articles_page.has_other_pages() %}
         {% include 'pagination.html' %}
-    {% endif %}
+    {% endif %} -->
 
 {% endblock content %}

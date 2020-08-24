@@ -18,6 +18,7 @@
   {% for tag in article.tags %}
     <meta name="tags" content="{{tag}}" />
   {% endfor %}
+
 {% endblock %}
 
 {% block content %}
@@ -50,6 +51,9 @@
           {% endfor %}
       </div>
     {% endif %}
+    <span class="text-muted" id="busuanzi_container_page_pv">
+      本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
+    </span>
   </footer><!-- /#post-info -->
 </div><!-- /.jumbotron -->
 
@@ -64,5 +68,7 @@
 <a class="btn btn-dark" href="#" role="button" style="height:2em;width:2em;border-radius:50%;padding:0; position:fixed;right:0.5rem;bottom:0.5rem">
   <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-chevron-bar-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.646 11.854a.5.5 0 0 0 .708 0L8 8.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708zM2.4 5.2c0 .22.18.4.4.4h10.4a.4.4 0 0 0 0-.8H2.8a.4.4 0 0 0-.4.4z"/></svg>
 </a>
+
+
 
 {% endblock %}

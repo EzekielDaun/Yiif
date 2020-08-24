@@ -2,11 +2,10 @@
 
 {% block title %}{{ SITENAME }} - {{ category }} category{% endblock %}
 
-
 {% block content %}
 
 <ul class="list-group list-group-flush col-lg-8 offset-lg-2 text-center">
-    <h1 class="display-4">{{category}}</h1>
+    <h1 class="display-4 text-capitalize">{{category}}</h1>
 
     {%for article in articles%}
     <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
