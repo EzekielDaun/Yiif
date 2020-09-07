@@ -22,9 +22,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron jumbotron-fluid clearfix text-white bg-transparent" style="{%if article.cover%}background-image:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url({{article.cover}});background-size:contain;background-position:center;background-repeat:no-repeat;{%endif%}text-align:center;">
+<div class="text-center mt-5 mb-3">
   <h1 class="text-wrap">{{article.title}}</h1>
-  {%if article.summary %}<p>{{article.summary}}</p>{%endif%}
+  {%if article.summary %}{{article.summary}}{%endif%}
   <footer id="post-info">
     <div class="translation">
     {% import 'translations.html' as translations with context %}
@@ -55,9 +55,11 @@
       本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次
     </span>
   </footer><!-- /#post-info -->
-</div><!-- /.jumbotron -->
+</div>
 
-<div id="article-content" class="row">
+
+
+<div id="article-content" class="row mt-5">
   <div class="col-sm-3 col-md-2 d-none d-sm-block" role="complementary" id="toc">
     <!-- <nav class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">{%if article.toc%}{{ article.toc }}{%endif%}</nav> -->
     <nav id="toc" data-spy="affix" data-toggle="toc" class="sticky-top text-reset" style="top:5rem"></nav>
