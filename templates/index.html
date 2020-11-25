@@ -1,39 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-12 col-lg-3 order-lg-second" id="sidebar">
-            <div class="col">
-                <h2 class="text-capitalize">tags</h2>
-                {%for tag,articles in tags%}
-                <a class="btn btn-sm btn-outline-dark text-nowrap shadow-sm my-1" href="{{ SITEURL }}/{{tag.url}}">{{tag}} <span class="badge badge-dark">{{articles|count}}</span> </a>
-                {%endfor%}
-            </div>
-            <div class="col">
-                <canvas id="radar-map">
-                    <p>radar-map test</p>
-                </canvas>
-            </div>
-        </div>
 
-        <div class="col-12 col-lg-9 order-lg-first" id="recent-posts">
-            <h2 class="col-12">Recent Posts</h2>
-            <div class="card-group">
-                {%for article in dates_page.object_list %}{%if loop.index<=3%}
-                <div class="card" style="min-width:33%">
-                    <div class="card-body">
-                        <h3 class="card-title"><a class="stretched-link text-reset text-capitalize" href="{{article.url }}">{{article.title}}</a></h3>
-                        <p class="card-text">{{article.summary}}</p>
-                    </div>
-                    <div class="card-footer"><small class="text-muted">{{article.locale_date}}</small></div>
+<h1 class="text-center">Hi  看点什么?</h1>
+
+<div class="" id="ball" style="height:500px;width:100%;"></div>
+
+<ul class="row" id="timeline">
+    {% for article in dates_page.object_list %}
+    <li class="row col-12 mt-1">
+
+        {%if (loop.index%2) %}
+        <div class="col-11 col-lg-5">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">{{article.locale_date}}</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="{{ article.url }}">
+                            {{article.title}}</a></h2>
+                    {%if article.summary%}<p class="card-text">{{article.summary}}</p>{%endif%}
                 </div>
-                {%endif%}{%endfor%}
             </div>
         </div>
-    </div><!-- /.row -->
-
-    <!-- {% if articles_page.has_other_pages() %}
-        {% include 'pagination.html' %}
-    {% endif %} -->
+        <div class="d-none d-sm-flex col-1 col-lg-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <p class="col-5 d-none d-lg-block text-left text-muted">{{article.locale_date}}</p>
+        {%else%}
+        <p class="col-5 d-none d-lg-block order-lg-1 text-left text-lg-right text-muted">{{article.locale_date}}</p>
+        <div class="d-none d-sm-flex col-1 col-lg-2 order-2" style="display:flex;justify-content:center;">
+            <div class="timeline">&#x1F789</div>
+        </div>
+        <div class="col-11 col-lg-5 order-lg-3">
+            <div class="card text-center mb-5">
+                <p class="d-block d-lg-none card-header">{{article.locale_date}}</p>
+                <div class="card-body">
+                    <h2 class="card-title text-uppercase"><a class="text-reset" href="{{ article.url }}">
+                            {{article.title}}</a></h2>
+                    {%if article.summary%}<p class="card-text">{{article.summary}}</p>{%endif%}
+                </div>
+            </div>
+        </div>
+        {%endif%}
+    </li>
+    {% endfor %}
+</ul>
 
 {% endblock content %}
+
+
+<!-- {% if articles_page.has_other_pages() %}
+        {% include 'pagination.html' %}
+    {% endif %} -->
