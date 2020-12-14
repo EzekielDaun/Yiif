@@ -1,29 +1,56 @@
-window.onload = (function () {
-    var div = document.getElementById("ball");
+window.onload = function () {
+  var { width, height, renderer } = initThree();
+  var camera = initCamera(width, height);
+  var scene = initScene();
 
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera( 75, div.clientWidth / div.clientHeight, 0.1, 1000 );
+  var light = initLight(scene);
+  var cube = initCube(scene);
 
-    var renderer = new THREE.WebGLRenderer();
-    renderer.setSize( div.clientWidth, div.clientHeight );
-    div.appendChild( renderer.domElement );
+  var animate = function () {
+    requestAnimationFrame(animate);
 
-    var geometry = new THREE.BoxGeometry();
-    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-    var cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
 
-    camera.position.z = 2;
+    renderer.render(scene, camera);
+  };
 
-    var animate = function () {
-        requestAnimationFrame( animate );
+  animate();
+  renderer.clear();
+  renderer.render(scene, camera);
+};
 
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+function initLight(scene) {
+  var light = new THREE.DirectionalLight(0xff0000, 1.0, 0);
+  light.position.set(100, 100, 200);
+  scene.add(light);
+  return light;
+}
 
-        renderer.render( scene, camera );
-    };
+function initCube(scene) {
+  var geometry = new THREE.BoxGeometry();
+  var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  var cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+  return cube;
+}
 
-    animate();
+function initCamera(width, height) {
+  var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  camera.position.z = 2;
+  return camera;
+}
 
-});
+function initScene() {
+  return new THREE.Scene();
+}
+
+function initThree() {
+  var div = document.getElementById("ball");
+  var width = div.clientWidth;
+  var height = div.clientHeight;
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setSize(width, height);
+  div.appendChild(renderer.domElement);
+  return { width, height, renderer };
+}
