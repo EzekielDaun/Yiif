@@ -1,56 +1,47 @@
-window.onload = function () {
-  var { width, height, renderer } = initThree();
-  var camera = initCamera(width, height);
-  var scene = initScene();
+$( document ).ready( function() {
+  var entries=[];
+  var target=document.getElementById('ball');
+  var articles=target.getElementsByClassName('ball-element');
+  for (var i=0; i<articles.length; i++) {
+    var article= articles[i];
+    entries.push({label:article.title,url:article.href,target:'_top'});
+  }
 
-  var light = initLight(scene);
-  var cube = initCube(scene);
+  var settings = {
 
-  var animate = function () {
-    requestAnimationFrame(animate);
+      entries: entries,
+      width: '480px',
+      height: '480px',
+      radius: '65%',
+      radiusMin: 75,
+      bgDraw: true,
+      bgColor: '#111',
+      opacityOver: 1.00,
+      opacityOut: 0.05,
+      opacitySpeed: 6,
+      fov: 800,
+      speed: 0.15,
+      fontFamily: 'Oswald, Arial, sans-serif',
+      fontSize: '15',
+      fontColor: '#fff',
+      fontWeight: 'normal',//bold
+      fontStyle: 'normal',//italic
+      fontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded
+      fontToUpperCase: true,
+      tooltipFontFamily: 'Oswald, Arial, sans-serif',
+      tooltipFontSize: '11',
+      tooltipFontColor: '#fff',
+      tooltipFontWeight: 'normal',//bold
+      tooltipFontStyle: 'normal',//italic
+      tooltipFontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded
+      tooltipFontToUpperCase: false,
+      tooltipTextAnchor: 'left',
+      tooltipDiffX: 0,
+      tooltipDiffY: 10
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-
-    renderer.render(scene, camera);
   };
 
-  animate();
-  renderer.clear();
-  renderer.render(scene, camera);
-};
+  //var svg3DTagCloud = new SVG3DTagCloud( document.getElementById( 'holder'  ), settings );
+  $( '#ball' ).svg3DTagCloud( settings );
 
-function initLight(scene) {
-  var light = new THREE.DirectionalLight(0xff0000, 1.0, 0);
-  light.position.set(100, 100, 200);
-  scene.add(light);
-  return light;
-}
-
-function initCube(scene) {
-  var geometry = new THREE.BoxGeometry();
-  var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  var cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
-  return cube;
-}
-
-function initCamera(width, height) {
-  var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-  camera.position.z = 2;
-  return camera;
-}
-
-function initScene() {
-  return new THREE.Scene();
-}
-
-function initThree() {
-  var div = document.getElementById("ball");
-  var width = div.clientWidth;
-  var height = div.clientHeight;
-  var renderer = new THREE.WebGLRenderer();
-  renderer.setSize(width, height);
-  div.appendChild(renderer.domElement);
-  return { width, height, renderer };
-}
+} );
