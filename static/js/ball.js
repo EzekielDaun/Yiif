@@ -11,11 +11,11 @@ $( document ).ready( function() {
 
       entries: entries,
       width: '480px',
-      height: '480px',
+      height: '50%',
       radius: '65%',
       radiusMin: 75,
       bgDraw: true,
-      bgColor: '#111',
+      bgColor: '#000',
       opacityOver: 1.00,
       opacityOut: 0.05,
       opacitySpeed: 6,
@@ -23,7 +23,7 @@ $( document ).ready( function() {
       speed: 0.15,
       fontFamily: 'Oswald, Arial, sans-serif',
       fontSize: '15',
-      fontColor: '#fff',
+      fontColor: 'currentColor',
       fontWeight: 'normal',//bold
       fontStyle: 'normal',//italic
       fontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded

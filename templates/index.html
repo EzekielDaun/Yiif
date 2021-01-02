@@ -2,10 +2,9 @@
 
 {% block content %}
 
-<h1 class="text-center">Hi  看点什么?</h1>
+<!-- <h1 class="text-center">Hi  看点什么?</h1> -->
 
-<!-- <div class="" id="ball" style="height:500px;width:100%;"></div> -->
-<div class='row' id='ball-wrapper' style='display:flex;justify-content:center'>
+<div class='row' id='ball-wrapper card' style='display:flex;justify-content:center'>
     <div id='ball'>
         {% for article in articles %}
             <a class="ball-element d-none" href="/{{article.url}}" title="{{ article.title }}"></a>
